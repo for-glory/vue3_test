@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vue3 Simple Shopping cart</title>
+  
+  
+  <link rel='stylesheet prefetch' href='css/bootstrap.min.css'>
+  <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div id="app" class="container">
+   <div class="text-right"><button class="btn btn-primary" data-toggle="modal" data-target="#cartModal">Cart ({{cartItems.length}})</button></div>
+  
+   <!-- Modal --> 
+   <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">          <span aria-hidden="true">&times;</span></button>
+               <h4 class="modal-title" id="myModalLabel">Cart</h4>
+            </div>
+            <div class="modal-body">
+			   <!-- This is an inline component. It works as intended for all items in cartItems array -->
+               <shopping-cart :items="cartItems" @removeitem="index => removeItem(index)">
+               </shopping-cart>
+            </div>
+            <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+         </div>
+      </div>
+   </div>
+	
+   <div class="container">
+      <div class="row">
+         <div class="col-xs-3 text-center" v-for="item of products">
+            <img class="img-responsive" alt="" :src="item.image">
+            <h5>{{ item.title }}</h5>
+            <h6>{{ formatCurrency(item.price) }}</h6>
+            <p class="text-center"><input v-model="item.qty" type="number" class="form-control" placeholder="Qty" min="1"/></p>
+               <button class="btn btn-sm btn-primary" @click="addToCart(item)">Add to Cart</button>
+            </p>
+         </div>
+      </div>
+   </div>
+</div>
+	<script src='js/jquery.3.1.1.min.js'></script>
+	<script src='js/bootstrap.3.3.7.min.js'></script>
+   <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+	<script src="js/app.js"></script>
+</body>
+
+</html>
